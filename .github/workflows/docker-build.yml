@@ -24,10 +24,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image with tag
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/user-service ./user-service
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/user-service
+          IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/user-service
+          TAG=$(echo $GITHUB_SHA | cut -c1-7)
+          docker build -t $IMAGE:$TAG -t $IMAGE:latest ./user-service
+          docker push $IMAGE:$TAG
+          docker push $IMAGE:latest
 
   task-service-build-and-push:
     name: task-service Build & Push Docker Image
@@ -46,8 +49,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build and push Docker image with tag
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/task-service ./task-service
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/task-service
+          IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/task-service
+          TAG=$(echo $GITHUB_SHA | cut -c1-7)
+          docker build -t $IMAGE:$TAG -t $IMAGE:latest ./task-service
+          docker push $IMAGE:$TAG
+          docker push $IMAGE:latest
 
