@@ -23,7 +23,7 @@ jobs:
           docker build -t user-service ./user-service
 
   build-task-service:
-    name: Build User Service Docker Image
+    name: Build Task Service Docker Image
     runs-on: ubuntu-latest
 
     steps:
