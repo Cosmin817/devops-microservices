@@ -2,8 +2,14 @@ name: CI - Build Docker Images
 
 on:
   push:
+    paths:
+      - task-service/**
+      - user-service/**
     branches: [ main ]
   pull_request:
+    paths:
+      - task-service/**
+      - user-service/**
     branches: [ main ]
 
 jobs:
